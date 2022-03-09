@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.ensemble import ExtraTreesClassifier
+from sklearn import preprocessing
 
 
 def getcolumnswithdatamissing(df_data, threshold):
@@ -21,7 +23,7 @@ def calculateobspercentage(df_train, variable):
     obs_count = df_train[f'{variable}'].value_counts()
     obs_percent = obs_count.apply(lambda x: x/obs_count.sum()).sort_values(ascending=False)
     print(obs_percent)
-    plotobservationpercentage(obs_percent, variable)
+    #plotobservationpercentage(obs_percent, variable)
     return obs_percent
 
 
@@ -45,4 +47,31 @@ def boxplotxy(df_train, x, y):
 def replaceobserwations(df_train, df_test, column, toreplace, replacement):
     df_train[column] = df_train[column].replace(toreplace, replacement)
     df_test[column] = df_test[column].replace(toreplace, replacement)
+
+
+def extratreefeatureselection(Xy, yname, times):
+    w = pd.DataFrame(Xy.drop(columns=[yname]).columns)
+    model = ExtraTreesClassifier()
+    Xy = Xy[~Xy.isnull().any(axis=1)]
+    print(len(Xy))
+    X = Xy.drop(columns=[yname]).values
+    X = preprocessing.scale(X)
+    y = Xy[yname].values
+    for n in range(times):
+        model.fit(X, y)
+        w[str(n+1)] = model.feature_importances_
+
+    w['mean'] = w.select_dtypes(include=np.number).mean(axis=1)
+    w.rename(columns={0: 'variable'}, inplace=True)
+    print(w[['variable', 'mean']])
+    return w[['variable', 'mean']]
+
+def getnoimportantvar(data, value):
+    return data.loc[data["mean"] < value, 'variable'].tolist()
+
+
+
+
+
+
 

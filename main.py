@@ -9,7 +9,7 @@ df_test = pd.read_csv("Data/test.csv", index_col=0)
 
 # Data Understanding
 
-#print(df_train.info())
+print(df_train.info())
 # print(len(df_train.select_dtypes('object').columns))
 
 '''
@@ -31,7 +31,7 @@ for variable in df_train.select_dtypes('object').columns:
     if not observationpercentagetodrop(df_train.select_dtypes('object'), variable, 0.75):
         columns.append(variable)
 
-# print(columns)
+print(columns)
 
 # Dropping columns found before
 df_train, df_test = dropcolumnstesttrain(df_train, df_test, columns)

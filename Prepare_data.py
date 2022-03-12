@@ -17,8 +17,8 @@ df_var_import = extratreefeatureselection(df_train.select_dtypes(include=np.numb
 print(df_train.select_dtypes(include=np.number).info())
 
 # Saving data
-df_train.to_csv('Data/train_V2.csv', index=False)
-df_test.to_csv('Data/test_V2.csv', index=False)
+df_train.to_csv('Data/train_V2.csv', index=True)
+df_test.to_csv('Data/test_V2.csv', index=True)
 
 
 

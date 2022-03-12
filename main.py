@@ -37,8 +37,8 @@ print(columns)
 df_train, df_test = dropcolumnstesttrain(df_train, df_test, columns)
 
 # Saving pre-cleaned data
-df_train.to_csv('Data/train_V1.csv', index=False)
-df_test.to_csv('Data/test_V1.csv', index=False)
+df_train.to_csv('Data/train_V1.csv', index=True)
+df_test.to_csv('Data/test_V1.csv', index=True)
 
 
 

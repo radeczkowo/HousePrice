@@ -28,7 +28,7 @@ df_train, df_test = dropcolumnstesttrain(df_train, df_test, getcolumnswithdatami
 # Finding columns in which percentage of the share of one variable is greater than threshold given.
 columns = []
 for variable in df_train.select_dtypes('object').columns:
-    if not observationpercentagetodrop(df_train.select_dtypes('object'), variable, 0.75):
+    if not observationpercentagetodrop(df_train.select_dtypes('object'), variable, 0.8):
         columns.append(variable)
 
 print(columns)
